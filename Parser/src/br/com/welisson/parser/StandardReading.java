@@ -21,14 +21,14 @@ public abstract class StandardReading {
 		try {
 			file = new FileReader(path);
 
-			List<Optional> datas;
-
 			id(file.getId());
 			nextLine();
 			creationDate(file.getCreationDate());
 			nextLine();
 			name(file.getName());
 			nextLine();
+
+			List<Optional> datas;
 			while ((datas = file.readNextLine()) != null) {
 				for (final Optional data : datas) {
 					if (data.isPresent()) {
@@ -44,7 +44,9 @@ public abstract class StandardReading {
 		}
 	}
 
-	protected abstract void end();
+	protected abstract void id(int id);
+
+	protected abstract void creationDate(LocalDateTime creationDate);
 
 	protected abstract void name(String name);
 
@@ -52,7 +54,11 @@ public abstract class StandardReading {
 
 	protected abstract void nextLine();
 
-	protected abstract void creationDate(LocalDateTime creationDate);
+	protected abstract void end();
 
-	protected abstract void id(int id);
+
+
+
+
+
 }

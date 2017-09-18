@@ -30,18 +30,15 @@ public class Write extends StandardReading{
 
 	}
 
-	@Override protected void end() {
-
+	@Override protected void id(final int id) {
 		try {
-			writer.flush();
-			writer.close();
-			return;
+			writer.write(id+"");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override protected void name(String name) {
+	@Override protected void name(final String name) {
 		try {
 			writer.write(name);
 		} catch (IOException e) {
@@ -49,7 +46,16 @@ public class Write extends StandardReading{
 		}
 	}
 
-	@Override protected void columnData(Optional data) {
+	@Override protected void creationDate(final LocalDateTime creationDate) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		try {
+			writer.write(creationDate.format(formatter));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override protected void columnData(final Optional data) {
 
 		try {
 			writer.write(data.get().toString()+"\t");
@@ -66,20 +72,15 @@ public class Write extends StandardReading{
 		}
 	}
 
-	@Override protected void creationDate(LocalDateTime creationDate) {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+	@Override protected void end() {
+
 		try {
-			writer.write(creationDate.format(formatter));
+			writer.flush();
+			writer.close();
+			return;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override protected void id(int id) {
-		try {
-			writer.write(id+"");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }

@@ -12,8 +12,13 @@ import java.util.Optional;
  */
 public class Print extends StandardReading {
 
-	@Override protected void end() {
-		System.out.println("Fim do arquivo!\n");
+	@Override protected void id(int id) {
+		print(Optional.of(id));
+	}
+
+	@Override protected void creationDate(final LocalDateTime creationDate) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		print(Optional.of(creationDate.format(formatter)));
 	}
 
 	@Override protected void name(final String name) {
@@ -28,13 +33,8 @@ public class Print extends StandardReading {
 		print(Optional.empty());
 	}
 
-	@Override protected void creationDate(final LocalDateTime creationDate) {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		print(Optional.of(creationDate.format(formatter)));
-	}
-
-	@Override protected void id(int id) {
-		print(Optional.of(id));
+	@Override protected void end() {
+		System.out.println("Fim do arquivo!\n");
 	}
 
 	private void print(final Optional<?> data){

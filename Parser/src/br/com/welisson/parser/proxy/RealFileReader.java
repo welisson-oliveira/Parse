@@ -8,6 +8,7 @@ import br.com.welisson.parser.Parser;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,10 +30,9 @@ public class RealFileReader implements FileReaderProxy {
 	private final BufferedReader file;
 	private List<Parser> configuration;
 
-	public RealFileReader(String path) throws FileNotFoundException {
-		BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
+	public RealFileReader(final String path) throws FileNotFoundException {
+		final BufferedReader reader = new BufferedReader(new FileReader(path));
 		this.file = reader;
-
 	}
 
 	@Override
